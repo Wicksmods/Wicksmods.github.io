@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wick's Mods — Precision Addons for TBC Classic</title>
+<meta name="description" content="Five precision addons for TBC Classic. One palette, one voice, one chrome. Wick's TBC BIS Tracker, CD Tracker, Trade Hall, Macro Builder, Combat Log.">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="256x256" href="images/favicon.png">
+<link rel="apple-touch-icon" sizes="256x256" href="images/favicon.png">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Wick's Mods — Precision Addons for TBC Classic">
+<meta property="og:description" content="Five precision addons. One locked palette. One voice. Built to be read at-a-glance during combat.">
+<meta property="og:image" content="https://wicksmods.io/images/wick-banner-suite-2x.png">
+<meta property="og:image:width" content="1720">
+<meta property="og:image:height" content="640">
+<meta property="og:url" content="https://wicksmods.io">
+<meta property="og:site_name" content="Wick's Mods">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Wick's Mods — Precision Addons for TBC Classic">
+<meta name="twitter:description" content="Five precision addons. One locked palette. One voice.">
+<meta name="twitter:image" content="https://wicksmods.io/images/wick-banner-suite-2x.png">
+
+<!-- Theme color (mobile browser chrome) -->
+<meta name="theme-color" content="#0D0A14">
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* Wick locked palette ───────────────────────────────────── */
+  :root {
+    --fel:        #4FC778;
+    --void:       #0D0A14;
+    --shadow:     #171124;
+    --border:     #383058;
+    --text:       #D4C8A1;
+    --text-dim:   #8F8870;
+    --text-mute:  #4A4235;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--void); color: var(--text); }
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  a { color: var(--fel); text-decoration: none; transition: color 0.15s; }
+  a:hover { color: var(--text); }
+
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 28px; }
+
+  /* Hero ──────────────────────────────────────────────────── */
+  .hero {
+    padding: 110px 28px 100px;
+    text-align: center;
+    position: relative;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(79,199,120,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 30% 70%, rgba(56,48,88,0.25) 0%, transparent 50%);
+  }
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--fel);
+    margin-bottom: 26px;
+    display: inline-block;
+    position: relative;
+    padding: 0 36px;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: '';
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    width: 24px; height: 1px;
+    background: var(--fel);
+    opacity: 0.6;
+  }
+  .hero-eyebrow::before { left: 0; }
+  .hero-eyebrow::after  { right: 0; }
+  /* Wordmark — flame-as-i. Glyph height 1.08em with -0.06em side margins
+     so the flame slots between W and c-k-'-s like a hot ligature. */
+  .wordmark {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: 132px;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--text);
+    white-space: nowrap;
+    position: relative;
+    margin-bottom: 6px;
+  }
+  .wordmark svg {
+    /* Width derived from viewBox aspect (40/91 ≈ 0.475em). Pinned explicitly
+       so browsers don't fall back to default SVG sizing. */
+    height: 1.08em; width: 0.475em;
+    vertical-align: -0.05em;
+    margin: 0 -0.06em;
+    position: relative; z-index: 2;
+    filter:
+      drop-shadow(0 0.025em 0.05em rgba(0,0,0,0.55))
+      drop-shadow(0 0 0.08em rgba(79,199,120,0.35));
+  }
+  .wordmark .apo { color: var(--fel); }
+  .wordmark-sub {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: 38px;
+    letter-spacing: 0.4em;
+    line-height: 1;
+    color: var(--fel);
+    margin-bottom: 28px;
+    /* Slight indent so MODS sits visually under "ck's" rather than dead-centered */
+    padding-left: 0.4em;
+  }
+  .hero-tagline {
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--text-dim);
+    max-width: 580px;
+    margin: 0 auto 44px;
+    line-height: 1.5;
+  }
+  .hero-tagline em { color: var(--text); font-style: normal; font-weight: 500; }
+  .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  /* Buttons ───────────────────────────────────────────────── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 28px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600; font-size: 12px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    border: 1px solid var(--border);
+    background: var(--shadow);
+    color: var(--text);
+    transition: all 0.18s;
+    cursor: pointer;
+  }
+  .btn:hover { border-color: var(--fel); color: var(--fel); }
+  .btn.primary { color: var(--fel); border-color: var(--fel); }
+  .btn.primary:hover { background: rgba(79,199,120,0.10); }
+
+  /* Section labels ─────────────────────────────────────────── */
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--fel);
+    display: flex; align-items: center; gap: 14px;
+    margin: 84px 0 28px;
+  }
+  .section-label::before, .section-label::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  /* Card grid ──────────────────────────────────────────────── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 18px;
+    margin-bottom: 100px;
+  }
+  .card {
+    position: relative;
+    background: var(--shadow);
+    border: 1px solid var(--border);
+    transition: all 0.22s ease-out;
+    display: flex;
+    flex-direction: column;
+    color: var(--text);
+    overflow: visible;
+  }
+  /* Fel-green L-brackets at all four corners */
+  .card .br { position: absolute; pointer-events: none; }
+  .card .br.tl { top: 0; left: 0; }
+  .card .br.tr { top: 0; right: 0; }
+  .card .br.bl { bottom: 0; left: 0; }
+  .card .br.br { bottom: 0; right: 0; }
+  .card .br .h, .card .br .v { position: absolute; background: var(--fel); }
+  .card .br .h { width: 10px; height: 2px; }
+  .card .br .v { width: 2px; height: 10px; }
+  .card .br.tl .h, .card .br.tl .v { top: 0; left: 0; }
+  .card .br.tr .h, .card .br.tr .v { top: 0; right: 0; }
+  .card .br.bl .h, .card .br.bl .v { bottom: 0; left: 0; }
+  .card .br.br .h, .card .br.br .v { bottom: 0; right: 0; }
+
+  .card:hover { transform: translateY(-3px); border-color: var(--fel); }
+  .card-thumb {
+    width: 100%; aspect-ratio: 460 / 260;
+    overflow: hidden; background: var(--void);
+    position: relative;
+  }
+  .card-thumb img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .card-meta { padding: 16px 20px 18px; border-top: 1px solid var(--border); flex: 1; display: flex; flex-direction: column; }
+  .card-name {
+    font-family: 'Cinzel', serif; font-weight: 700;
+    font-size: 15px; letter-spacing: 0.01em;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .card-name .apo { color: var(--fel); }
+  .card-tagline {
+    font-size: 13px; color: var(--text-dim); line-height: 1.5;
+    margin-bottom: 14px; flex: 1;
+  }
+  .card-slash {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; color: var(--fel);
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+    opacity: 0.75;
+  }
+  .card-actions { display: flex; gap: 8px; }
+  .card-btn {
+    flex: 1; text-align: center;
+    padding: 9px 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+  .card-btn:hover { color: var(--fel); border-color: var(--fel); }
+  .card-btn.cf { color: var(--fel); border-color: var(--fel); }
+  .card-btn.cf:hover { background: rgba(79,199,120,0.10); }
+
+  /* "New" badge for fresh addons */
+  .new-badge {
+    position: absolute; top: 10px; right: 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--void); background: var(--fel);
+    padding: 3px 8px;
+    z-index: 2;
+  }
+
+  /* Brand strip ─────────────────────────────────────────────── */
+  .brand-strip {
+    padding: 80px 28px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background:
+      linear-gradient(180deg, rgba(13,10,20,0.0) 0%, rgba(56,48,88,0.10) 100%),
+      var(--void);
+  }
+  .brand-strip .container {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .brand-strip h2 {
+    font-family: 'Cinzel', serif; font-weight: 700;
+    font-size: 28px; color: var(--text);
+    margin-bottom: 18px; line-height: 1.2;
+  }
+  .brand-strip h2 .apo { color: var(--fel); }
+  .brand-strip p {
+    font-size: 14px; color: var(--text-dim);
+    line-height: 1.7; margin-bottom: 14px; max-width: 520px;
+  }
+  .brand-strip p strong { color: var(--text); font-weight: 500; }
+  .palette {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 0; padding-bottom: 30px;
+  }
+  .swatch {
+    aspect-ratio: 1; position: relative;
+    border-right: 1px solid var(--void);
+  }
+  .swatch:last-child { border-right: none; }
+  .swatch::after {
+    content: attr(data-name);
+    position: absolute; bottom: -22px; left: 0; right: 0;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; letter-spacing: 0.15em;
+    color: var(--text-mute); text-transform: uppercase;
+  }
+
+  /* CTA strip ──────────────────────────────────────────────── */
+  .cta {
+    padding: 80px 28px;
+    text-align: center;
+  }
+  .cta h2 {
+    font-family: 'Cinzel', serif; font-weight: 700;
+    font-size: 32px; color: var(--text);
+    margin-bottom: 16px;
+  }
+  .cta h2 .apo { color: var(--fel); }
+  .cta p {
+    font-size: 16px; color: var(--text-dim);
+    max-width: 540px; margin: 0 auto 30px;
+  }
+
+  /* Footer ─────────────────────────────────────────────────── */
+  footer {
+    padding: 40px 28px 50px;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 0.22em;
+    color: var(--text-mute); text-transform: uppercase;
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--text-dim); }
+  footer a:hover { color: var(--fel); }
+  footer .row { margin-bottom: 8px; }
+
+  /* Responsive ─────────────────────────────────────────────── */
+  @media (max-width: 800px) {
+    .wordmark { font-size: 84px; }
+    .wordmark-sub { font-size: 24px; letter-spacing: 0.35em; }
+    .hero { padding: 80px 28px 70px; }
+    .hero-tagline { font-size: 18px; }
+    .brand-strip .container { grid-template-columns: 1fr; gap: 40px; }
+    .palette { max-width: 360px; }
+  }
+  @media (max-width: 480px) {
+    .wordmark { font-size: 60px; }
+    .wordmark-sub { font-size: 18px; letter-spacing: 0.3em; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Reusable flame-as-i SVG symbol used by the wordmark. -->
+<svg width="0" height="0" style="position:absolute;" aria-hidden="true">
+  <defs>
+    <symbol id="flame-i" viewBox="20 0 40 91">
+      <rect x="38" y="52" width="4" height="36" fill="#4FC778" opacity="0.5"/>
+      <ellipse cx="40" cy="88" rx="18" ry="5" fill="#4FC778" opacity="0.15"/>
+      <rect x="22" y="83" width="36" height="8" rx="1" fill="#383058"/>
+      <rect x="22" y="83" width="36" height="8" rx="1" fill="#4FC778" opacity="0.12"/>
+      <path d="M40 8 C40 8, 58 30, 58 50 C58 63.8, 50.1 72, 40 72 C29.9 72, 22 63.8, 22 50 C22 30, 40 8 Z" fill="#4FC778" opacity="0.2"/>
+      <path d="M40 18 C40 18, 52 36, 52 50 C52 59.9, 46.6 66, 40 66 C33.4 66, 28 59.9, 28 50 C28 36, 40 18 Z" fill="#4FC778" opacity="0.5"/>
+      <path d="M40 28 C40 28, 47 40, 47 50 C47 54.9, 43.9 58, 40 58 C36.1 58, 33 54.9, 33 50 C33 40, 40 28 Z" fill="#4FC778" opacity="0.9"/>
+      <path d="M40 36 C40 36, 43.5 43, 43.5 50 C43.5 52.8, 42 54.5, 40 54.5 C38 54.5, 36.5 52.8, 36.5 50 C36.5 43, 40 36 Z" fill="#D4C8A1" opacity="0.85"/>
+      <circle cx="40" cy="52" r="2" fill="#4FC778"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- HERO ────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-eyebrow">World of Warcraft · TBC Classic</div>
+  <div class="wordmark">W<svg width="40" height="91"><use href="#flame-i"/></svg>ck<span class="apo">'</span>s</div>
+  <div class="wordmark-sub">MODS</div>
+  <div class="hero-tagline">
+    <em>Five precision addons.</em> One locked palette. One voice. Built to be read at-a-glance during combat — not between pulls.
+  </div>
+  <div class="hero-actions">
+    <a href="#suite" class="btn primary">Browse the Suite ↓</a>
+    <a href="https://github.com/Wicksmods" class="btn">GitHub →</a>
+  </div>
+</section>
+
+<!-- SUITE GRID ─────────────────────────────────────────── -->
+<section class="container" id="suite">
+  <div class="section-label">The Suite · 5 Addons</div>
+
+  <div class="grid">
+
+    <!-- BIS Tracker -->
+    <div class="card">
+      <div class="br tl"><div class="h"></div><div class="v"></div></div>
+      <div class="br tr"><div class="h"></div><div class="v"></div></div>
+      <div class="br bl"><div class="h"></div><div class="v"></div></div>
+      <div class="br br"><div class="h"></div><div class="v"></div></div>
+      <div class="card-thumb">
+        <img src="images/wick-thumb-bis.png" alt="Wick's TBC BIS Tracker">
+      </div>
+      <div class="card-meta">
+        <div class="card-name"><span class="apo">Wick's</span> TBC BIS Tracker</div>
+        <div class="card-tagline">Best-in-slot gear tracking for every class, every spec, every phase of TBC Classic.</div>
+        <div class="card-slash">/wtbt</div>
+        <div class="card-actions">
+          <a href="https://www.curseforge.com/wow/addons/wicks-tbc-bis-tracker" class="card-btn cf">CurseForge</a>
+          <a href="https://github.com/Wicksmods/WickidsTBCBISTracker" class="card-btn">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CD Tracker -->
+    <div class="card">
+      <div class="br tl"><div class="h"></div><div class="v"></div></div>
+      <div class="br tr"><div class="h"></div><div class="v"></div></div>
+      <div class="br bl"><div class="h"></div><div class="v"></div></div>
+      <div class="br br"><div class="h"></div><div class="v"></div></div>
+      <div class="card-thumb">
+        <img src="images/wick-thumb-cd.png" alt="Wick's CD Tracker">
+      </div>
+      <div class="card-meta">
+        <div class="card-name"><span class="apo">Wick's</span> CD Tracker</div>
+        <div class="card-tagline">Live party / raid cooldown tracker. Kicks, saves, offensives, utility — one tight panel.</div>
+        <div class="card-slash">/wcdt</div>
+        <div class="card-actions">
+          <a href="https://www.curseforge.com/wow/addons/wicks-cd-tracker" class="card-btn cf">CurseForge</a>
+          <a href="https://github.com/Wicksmods/WicksCDTracker" class="card-btn">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trade Hall -->
+    <div class="card">
+      <div class="br tl"><div class="h"></div><div class="v"></div></div>
+      <div class="br tr"><div class="h"></div><div class="v"></div></div>
+      <div class="br bl"><div class="h"></div><div class="v"></div></div>
+      <div class="br br"><div class="h"></div><div class="v"></div></div>
+      <div class="card-thumb">
+        <img src="images/wick-thumb-trade.png" alt="Wick's Trade Hall">
+      </div>
+      <div class="card-meta">
+        <div class="card-name"><span class="apo">Wick's</span> Trade Hall</div>
+        <div class="card-tagline">Trade channel as a bulletin board. Seven categories, aged-out listings, no wall-of-spam.</div>
+        <div class="card-slash">/wth</div>
+        <div class="card-actions">
+          <a href="https://www.curseforge.com/wow/addons/trade-hall" class="card-btn cf">CurseForge</a>
+          <a href="https://github.com/Wicksmods/WicksTradeHall" class="card-btn">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Macro Builder -->
+    <div class="card">
+      <div class="br tl"><div class="h"></div><div class="v"></div></div>
+      <div class="br tr"><div class="h"></div><div class="v"></div></div>
+      <div class="br bl"><div class="h"></div><div class="v"></div></div>
+      <div class="br br"><div class="h"></div><div class="v"></div></div>
+      <div class="card-thumb">
+        <img src="images/wick-thumb-macro.png" alt="Wick's Macro Builder">
+      </div>
+      <div class="card-meta">
+        <div class="card-name"><span class="apo">Wick's</span> Macro Builder</div>
+        <div class="card-tagline">Click-to-insert chips, drag macros to action bars, curated presets for all 9 classes.</div>
+        <div class="card-slash">/wsmb</div>
+        <div class="card-actions">
+          <a href="https://www.curseforge.com/wow/addons/wicks-macro-builder" class="card-btn cf">CurseForge</a>
+          <a href="https://github.com/Wicksmods/WicksMacroBuilder" class="card-btn">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Combat Log -->
+    <div class="card">
+      <div class="new-badge">New</div>
+      <div class="br tl"><div class="h"></div><div class="v"></div></div>
+      <div class="br tr"><div class="h"></div><div class="v"></div></div>
+      <div class="br bl"><div class="h"></div><div class="v"></div></div>
+      <div class="br br"><div class="h"></div><div class="v"></div></div>
+      <div class="card-thumb">
+        <img src="images/wick-thumb-combat.png" alt="Wick's Combat Log">
+      </div>
+      <div class="card-meta">
+        <div class="card-name"><span class="apo">Wick's</span> Combat Log</div>
+        <div class="card-tagline">Raw COMBAT_LOG_EVENT_UNFILTERED viewer. Every subevent, every arg, with filters and side-panel inspection.</div>
+        <div class="card-slash">/wcl</div>
+        <div class="card-actions">
+          <a href="https://www.curseforge.com/wow/addons/wicks-combat-log" class="card-btn cf">CurseForge</a>
+          <a href="https://github.com/Wicksmods/WicksCombatLog" class="card-btn">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BRAND STRIP ─────────────────────────────────────────── -->
+<section class="brand-strip">
+  <div class="container">
+    <div>
+      <h2>One palette. One voice.</h2>
+      <p>Every Wick addon is built around the same locked five-color palette and the same fel-green L-bracket chrome. <strong>No gradients, no Blizzard dialog textures, no fantasy scroll borders.</strong> Just clean information density that fades into the background until you need it.</p>
+      <p>Open source under MIT — brand assets trademarked. See the <a href="https://github.com/Wicksmods/WickSuite">WickSuite repo</a> for the full identity system.</p>
+    </div>
+    <div>
+      <div class="palette">
+        <div class="swatch" style="background:#4FC778" data-name="Fel"></div>
+        <div class="swatch" style="background:#0D0A14" data-name="Void"></div>
+        <div class="swatch" style="background:#171124" data-name="Shadow"></div>
+        <div class="swatch" style="background:#383058" data-name="Border"></div>
+        <div class="swatch" style="background:#D4C8A1" data-name="Text"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA ─────────────────────────────────────────────────── -->
+<section class="cta">
+  <h2><span class="apo">Wick's</span> first; nothing second.</h2>
+  <p>Pick the addons you need from the suite. Each is fully self-contained — no shared dependencies, no library spaghetti. Built solo, by Wick.</p>
+  <a href="#suite" class="btn primary">↑ Back to the suite</a>
+</section>
+
+<!-- FOOTER ─────────────────────────────────────────────── -->
+<footer>
+  <div class="row">Wick · TBC Classic · MIT licensed code · Brand trademarked</div>
+  <div class="row">
+    <a href="https://github.com/Wicksmods/WickSuite">WickSuite</a> ·
+    <a href="https://github.com/Wicksmods">Wicksmods on GitHub</a> ·
+    <a href="https://www.curseforge.com/members/wick/projects">Wick on CurseForge</a>
+  </div>
+</footer>
+
+</body>
+</html>
