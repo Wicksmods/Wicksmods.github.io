@@ -248,50 +248,6 @@
     z-index: 2;
   }
 
-  /* Brand strip ─────────────────────────────────────────────── */
-  .brand-strip {
-    padding: 80px 28px;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    background:
-      linear-gradient(180deg, rgba(13,10,20,0.0) 0%, rgba(56,48,88,0.10) 100%),
-      var(--void);
-  }
-  .brand-strip .container {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-  .brand-strip h2 {
-    font-family: 'Cinzel', serif; font-weight: 700;
-    font-size: 28px; color: var(--text);
-    margin-bottom: 18px; line-height: 1.2;
-  }
-  .brand-strip h2 .apo { color: var(--fel); }
-  .brand-strip p {
-    font-size: 14px; color: var(--text-dim);
-    line-height: 1.7; margin-bottom: 14px; max-width: 520px;
-  }
-  .brand-strip p strong { color: var(--text); font-weight: 500; }
-  .palette {
-    display: grid; grid-template-columns: repeat(5, 1fr);
-    gap: 0; padding-bottom: 30px;
-  }
-  .swatch {
-    aspect-ratio: 1; position: relative;
-    border-right: 1px solid var(--void);
-  }
-  .swatch:last-child { border-right: none; }
-  .swatch::after {
-    content: attr(data-name);
-    position: absolute; bottom: -22px; left: 0; right: 0;
-    text-align: center;
-    font-family: 'Space Mono', monospace;
-    font-size: 9px; letter-spacing: 0.15em;
-    color: var(--text-mute); text-transform: uppercase;
-  }
-
   /* CTA strip ──────────────────────────────────────────────── */
   .cta {
     padding: 80px 28px;
@@ -327,8 +283,6 @@
     .wordmark-sub { font-size: 24px; letter-spacing: 0.35em; }
     .hero { padding: 80px 28px 70px; }
     .hero-tagline { font-size: 18px; }
-    .brand-strip .container { grid-template-columns: 1fr; gap: 40px; }
-    .palette { max-width: 360px; }
   }
   @media (max-width: 480px) {
     .wordmark { font-size: 60px; }
@@ -480,25 +434,6 @@
 </section>
 
 <!-- BRAND STRIP ─────────────────────────────────────────── -->
-<section class="brand-strip">
-  <div class="container">
-    <div>
-      <h2>One palette. One voice.</h2>
-      <p>Every Wick addon is built around the same locked five-color palette and the same fel-green L-bracket chrome. <strong>No gradients, no Blizzard dialog textures, no fantasy scroll borders.</strong> Just clean information density that fades into the background until you need it.</p>
-      <p>Open source under MIT — brand assets trademarked. See the <a href="https://github.com/Wicksmods/WickSuite">WickSuite repo</a> for the full identity system.</p>
-    </div>
-    <div>
-      <div class="palette">
-        <div class="swatch" style="background:#4FC778" data-name="Fel"></div>
-        <div class="swatch" style="background:#0D0A14" data-name="Void"></div>
-        <div class="swatch" style="background:#171124" data-name="Shadow"></div>
-        <div class="swatch" style="background:#383058" data-name="Border"></div>
-        <div class="swatch" style="background:#D4C8A1" data-name="Text"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- CTA ─────────────────────────────────────────────────── -->
 <section class="cta">
   <h2><span class="apo">Wick's</span> first; nothing second.</h2>
