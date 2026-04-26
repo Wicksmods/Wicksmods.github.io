@@ -1,0 +1,21 @@
+# Local secrets / tokens
+.env
+.env.*
+*.token
+
+# Wrangler / Cloudflare
+.wrangler/
+.dev.vars
+
+# Build / temp
+.tmp/
+node_modules/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.vscode/
+.idea/
+.claude/
