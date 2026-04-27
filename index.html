@@ -176,11 +176,13 @@
     font-size: 132px;
     letter-spacing: -0.03em;
     line-height: 0.95;
-    color: var(--text);
-    /* Subtle fel-green halo behind the number */
+    /* Lifted-from-locked muted purple (#383058 at ~50% lightness) — sits
+       behind the cream wordmark visually so the headline still wins. */
+    color: #7568a3;
+    /* Faint matching purple aura */
     text-shadow:
-      0 0 24px rgba(79,199,120,0.18),
-      0 0 64px rgba(79,199,120,0.10);
+      0 0 28px rgba(117, 104, 163, 0.22),
+      0 0 64px rgba(56, 48, 88, 0.18);
     /* Prevent layout jitter when JS swaps the number after fetch */
     font-variant-numeric: tabular-nums;
     display: inline-block;
