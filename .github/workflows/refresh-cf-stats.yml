@@ -1,0 +1,57 @@
+name: Refresh CF download stats
+
+# Pulls per-file totalDownloads from CurseForge for every Wick suite addon,
+# sums them, and commits the total to data/downloads.json. The landing page
+# fetches that JSON to render the big number in the hero stat band.
+#
+# Cron: every 6 hours. Manual trigger via the Actions tab when needed.
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'   # 17 past every 6th hour — off the hour to avoid GH-wide thundering herd
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch totals from CurseForge
+        run: |
+          set -euo pipefail
+          mkdir -p data
+          TOTAL=0
+          # Project IDs from wick.json
+          for ID in 1502804 1519243 1502890 1521208 1525232; do
+            # /api/v1/mods/{id}/files returns up to pageSize results.
+            # 500 is plenty — no Wick addon has anywhere near that many file uploads.
+            BODY=$(curl -sf \
+              -A "Wicksmods landing-page stat refresher (https://github.com/Wicksmods/Wicksmods.github.io)" \
+              "https://www.curseforge.com/api/v1/mods/$ID/files?pageIndex=0&pageSize=500" \
+              || echo '{"data":[]}')
+            P=$(echo "$BODY" | jq '[.data[].totalDownloads] | add // 0')
+            echo "  Project $ID : $P"
+            TOTAL=$((TOTAL + P))
+          done
+          echo "TOTAL: $TOTAL"
+          NOW=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          jq -n --arg updated "$NOW" --argjson total "$TOTAL" \
+            '{updated: $updated, total: $total}' > data/downloads.json
+          echo "Wrote:"
+          cat data/downloads.json
+
+      - name: Commit if changed
+        run: |
+          git config user.name "Wick"
+          git config user.email "Jason@s-56.com"
+          git add data/downloads.json
+          if git diff --staged --quiet; then
+            echo "No change in totals — nothing to commit."
+          else
+            git commit -m "Refresh CF download stats"
+            git push
+          fi
