@@ -303,6 +303,18 @@
     padding: 3px 8px;
     z-index: 2;
   }
+  /* Variant for addons still awaiting CurseForge review — swapped in by JS
+     when data/addons-status.json says the slug is "pending". The CF link
+     would 404 in that state, so we also dim the CF button and disable it. */
+  .new-badge.pending {
+    background: #c8a84b;          /* warm amber to read as "in-progress" */
+    letter-spacing: 0.14em;        /* "Pending approval" needs more room */
+  }
+  .card.is-pending .card-btn.cf {
+    opacity: 0.45;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
 
   /* CTA strip ──────────────────────────────────────────────── */
   .cta {
@@ -583,6 +595,36 @@
                  'Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen',
                  'Fifteen','Sixteen','Seventeen','Eighteen','Nineteen','Twenty'];
   word.textContent = words[n] || String(n);
+})();
+</script>
+
+<!-- Approval status: the GH Action HEADs each addon's CF slug every 6 hours -->
+<!-- and writes data/addons-status.json. Pending = the public slug 404s while -->
+<!-- CurseForge reviews a fresh upload. Cards in "pending" state get an amber  -->
+<!-- "Pending approval" badge and a disabled CF button. -->
+<script>
+(() => {
+  fetch('data/addons-status.json?_=' + Date.now(), { cache: 'no-store' })
+    .then(r => r.ok ? r.json() : null)
+    .then(d => {
+      if (!d || !d.status) return;
+      const cards = document.querySelectorAll('#suite .card');
+      cards.forEach(card => {
+        const cf = card.querySelector('.card-btn.cf');
+        if (!cf) return;
+        const m = cf.getAttribute('href').match(/\/wow\/addons\/([^/?#]+)/);
+        if (!m) return;
+        const state = d.status[m[1]];
+        if (state !== 'pending') return;
+        card.classList.add('is-pending');
+        const badge = card.querySelector('.new-badge');
+        if (badge) {
+          badge.classList.add('pending');
+          badge.textContent = 'Pending approval';
+        }
+      });
+    })
+    .catch(() => { /* keep static badges */ });
 })();
 </script>
 

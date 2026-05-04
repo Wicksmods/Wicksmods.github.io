@@ -4,6 +4,11 @@ name: Refresh CF download stats
 # sums them, and commits the total to data/downloads.json. The landing page
 # fetches that JSON to render the big number in the hero stat band.
 #
+# Also HEAD-checks each addon's public CurseForge slug to write
+# data/addons-status.json — the landing page uses that to flip the "New"
+# badge to "Pending approval" while a freshly-uploaded addon waits for CF
+# review (during which the public slug 404s).
+#
 # Cron: every 6 hours. Manual trigger via the Actions tab when needed.
 
 on:
@@ -53,14 +58,52 @@ jobs:
           echo "Seed line after patch:"
           grep 'id="total-downloads"' index.html || true
 
+      - name: Check public-slug approval status
+        run: |
+          set -euo pipefail
+          mkdir -p data
+
+          # Slug list mirrors wick.json — keep in sync when adding a new addon.
+          # cf_slug values: see https://github.com/Wicksmods/WickSuite/blob/main/wick.json
+          SLUGS=(
+            wicks-tbc-bis-tracker
+            wicks-cd-tracker
+            trade-hall
+            wicks-macro-builder
+            wicks-combat-log
+            wicks-stats
+            wicks-quest-key
+          )
+
+          NOW=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          # Build a JSON object: { "slug": "live"|"pending", ... }
+          # Pending = HEAD returns non-2xx (typically 404 during CF review).
+          STATUS_JSON='{}'
+          for SLUG in "${SLUGS[@]}"; do
+            CODE=$(curl -sI -o /dev/null -w '%{http_code}' \
+              -A "Wicksmods landing-page status checker (https://github.com/Wicksmods/Wicksmods.github.io)" \
+              --max-time 15 \
+              "https://www.curseforge.com/wow/addons/$SLUG" || echo 000)
+            if [ "$CODE" = "200" ]; then
+              STATE=live
+            else
+              STATE=pending
+            fi
+            echo "  $SLUG : HTTP $CODE → $STATE"
+            STATUS_JSON=$(jq --arg s "$SLUG" --arg v "$STATE" '. + {($s): $v}' <<< "$STATUS_JSON")
+          done
+          jq --arg updated "$NOW" '. as $s | {updated: $updated, status: $s}' <<< "$STATUS_JSON" > data/addons-status.json
+          echo "Wrote:"
+          cat data/addons-status.json
+
       - name: Commit if changed
         run: |
           git config user.name "Wick"
           git config user.email "Jason@s-56.com"
-          git add data/downloads.json index.html
+          git add data/downloads.json data/addons-status.json index.html
           if git diff --staged --quiet; then
-            echo "No change in totals — nothing to commit."
+            echo "No change — nothing to commit."
           else
-            git commit -m "Refresh CF download stats"
+            git commit -m "Refresh CF download stats + approval status"
             git push
           fi
