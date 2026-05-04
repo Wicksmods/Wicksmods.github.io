@@ -26,7 +26,9 @@ jobs:
           mkdir -p data
           TOTAL=0
           # Project IDs from wick.json
-          for ID in 1502804 1519243 1502890 1521208 1525232; do
+          # 1502804 BIS, 1519243 CD, 1502890 Trade, 1521208 Macro, 1525232 Combat,
+          # 1532082 Stats, 1533199 Quest Key
+          for ID in 1502804 1519243 1502890 1521208 1525232 1532082 1533199; do
             # /api/v1/mods/{id}/files returns up to pageSize results.
             # 500 is plenty — no Wick addon has anywhere near that many file uploads.
             BODY=$(curl -sf \
@@ -44,11 +46,18 @@ jobs:
           echo "Wrote:"
           cat data/downloads.json
 
+          # Patch the seed in index.html so first paint shows a fresh number
+          # (the JS fetch still wins, but reduces the visible flash on refresh).
+          # Matches: <div ... id="total-downloads" data-default="NNN">NNN</div>
+          sed -i -E "s|(id=\"total-downloads\" data-default=\")[0-9]+(\">)[0-9]+(</div>)|\1${TOTAL}\2${TOTAL}\3|" index.html
+          echo "Seed line after patch:"
+          grep 'id="total-downloads"' index.html || true
+
       - name: Commit if changed
         run: |
           git config user.name "Wick"
           git config user.email "Jason@s-56.com"
-          git add data/downloads.json
+          git add data/downloads.json index.html
           if git diff --staged --quiet; then
             echo "No change in totals — nothing to commit."
           else
