@@ -371,7 +371,7 @@
   <div class="wordmark">W<svg width="40" height="91"><use href="#flame-i"/></svg>ck<span class="apo">'</span>s</div>
   <div class="wordmark-sub">MODS</div>
   <div class="hero-tagline">
-    <em>Seven precision addons.</em> One locked palette. One voice. Built to be read at-a-glance during combat — not between pulls.
+    <em><span id="addon-count-word">Seven</span> precision addons.</em> One locked palette. One voice. Built to be read at-a-glance during combat — not between pulls.
   </div>
   <div class="hero-actions">
     <a href="#suite" class="btn primary">Browse the Suite ↓</a>
@@ -568,6 +568,21 @@
       }
     })
     .catch(() => { /* keep seed */ });
+})();
+</script>
+
+<!-- Hero addon count: derive from the actual cards in the suite grid so the -->
+<!-- count auto-updates whenever a card is added or removed. -->
+<script>
+(() => {
+  const word = document.getElementById('addon-count-word');
+  if (!word) return;
+  const n = document.querySelectorAll('#suite .card').length;
+  if (!n) return;
+  const words = ['Zero','One','Two','Three','Four','Five','Six','Seven',
+                 'Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen',
+                 'Fifteen','Sixteen','Seventeen','Eighteen','Nineteen','Twenty'];
+  word.textContent = words[n] || String(n);
 })();
 </script>
 
