@@ -1,6 +1,6 @@
 # Wick's Mods
 
-Static landing page for the **Wick suite** — five precision addons for World of Warcraft TBC Classic.
+Static landing page for the **Wick suite** — eight precision addons for World of Warcraft TBC Classic.
 
 🌐 **Live site:** [wicksmods.io](https://wicksmods.io)
 
@@ -11,6 +11,9 @@ Static landing page for the **Wick suite** — five precision addons for World o
 - [Wick's Trade Hall](https://github.com/Wicksmods/WicksTradeHall) — trade chat bulletin board
 - [Wick's Macro Builder](https://github.com/Wicksmods/WicksMacroBuilder) — chip-based macro editor
 - [Wick's Combat Log](https://github.com/Wicksmods/WicksCombatLog) — raw COMBAT_LOG_EVENT_UNFILTERED viewer
+- [Wick's Stats](https://github.com/Wicksmods/WicksStats) — detailed stat panel
+- [Wick's Quest Key](https://github.com/Wicksmods/WicksQuestKey) — one bind for active quest items
+- [Wick's Totems and Things](https://github.com/Wicksmods/WicksTotemsAndThings) — shaman totem twist + proc tracker
 
 Brand assets and the design system live in [WickSuite](https://github.com/Wicksmods/WickSuite).
 
