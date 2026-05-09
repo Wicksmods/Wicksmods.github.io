@@ -1,6 +1,6 @@
 # Wick's Mods
 
-Static landing page for the **Wick suite** — nine precision addons for World of Warcraft TBC Classic.
+Static landing page for the **Wick suite** — precision addons for World of Warcraft TBC Classic.
 
 🌐 **Live site:** [wicksmods.io](https://wicksmods.io)
 
