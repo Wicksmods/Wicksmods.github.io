@@ -99,7 +99,7 @@ jobs:
       - name: Commit if changed
         run: |
           git config user.name "Wick"
-          git config user.email "Jason@s-56.com"
+          git config user.email "wicksmods@gmail.com"
           git add data/downloads.json data/addons-status.json index.html
           if git diff --staged --quiet; then
             echo "No change — nothing to commit."
