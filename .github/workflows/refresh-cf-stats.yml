@@ -26,6 +26,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Fetch totals from CurseForge
+        env:
+          CF_CORE_API_KEY: ${{ secrets.CF_CORE_API_KEY }}
         run: |
           set -euo pipefail
           mkdir -p data
@@ -34,13 +36,12 @@ jobs:
           # 1502804 BIS, 1519243 CD, 1502890 Trade, 1521208 Macro, 1525232 Combat,
           # 1532082 Stats, 1533199 Quest Key, 1557237 Survivors
           for ID in 1502804 1519243 1502890 1521208 1525232 1532082 1533199 1557237; do
-            # /api/v1/mods/{id}/files returns up to pageSize results.
-            # 500 is plenty — no Wick addon has anywhere near that many file uploads.
             BODY=$(curl -sf \
+              -H "x-api-key: $CF_CORE_API_KEY" \
               -A "Wicksmods landing-page stat refresher (https://github.com/Wicksmods/Wicksmods.github.io)" \
-              "https://www.curseforge.com/api/v1/mods/$ID/files?pageIndex=0&pageSize=500" \
-              || echo '{"data":[]}')
-            P=$(echo "$BODY" | jq '[.data[].totalDownloads] | add // 0')
+              "https://api.curseforge.com/v1/mods/$ID" \
+              || echo '{"data":{}}')
+            P=$(echo "$BODY" | jq '.data.downloadCount // 0')
             echo "  Project $ID : $P"
             TOTAL=$((TOTAL + P))
           done
