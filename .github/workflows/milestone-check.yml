@@ -83,17 +83,19 @@ jobs:
               elif [ "$M" -eq 10000 ]; then HEADLINE="10,000 downloads. That's a full raid tier."
               elif [ "$M" -eq 25000 ]; then HEADLINE="25,000 downloads. Sunwell-level numbers."
               elif [ "$M" -eq 50000 ]; then HEADLINE="50,000 downloads. Legendary."
-              elif [ "$M" -eq 100000]; then HEADLINE="100,000 downloads. The Wick empire is real."
+              elif [ "$M" -eq 100000 ]; then HEADLINE="100,000 downloads. The Wick empire is real."
               else                          HEADLINE="${FORMATTED} downloads."
               fi
 
               BODY="Wick's Mods just crossed ${FORMATTED} total downloads on CurseForge. ${TOTAL_FORMATTED} and counting. Thanks for using the suite."
 
               # ── Discord ──────────────────────────────────────────────
+              FOOTER_TEXT="Wick's Mods"
               DISCORD_PAYLOAD=$(jq -n \
                 --arg headline "$HEADLINE" \
                 --arg body "$BODY" \
                 --arg url "$CF_SUITE_URL" \
+                --arg footer "$FOOTER_TEXT" \
                 --argjson color 5228408 \
                 '{
                   embeds: [{
@@ -101,7 +103,7 @@ jobs:
                     description: $body,
                     color: $color,
                     fields: [{ name: "Browse the suite", value: ("[CurseForge](" + $url + ")"), inline: true }],
-                    footer: { text: "Wick'\''s Mods" }
+                    footer: { text: $footer }
                   }]
                 }')
               DISCORD_RESP=$(curl -s -X POST \
