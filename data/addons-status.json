@@ -1,5 +1,5 @@
 {
-  "updated": "2026-05-29T04:46:41Z",
+  "updated": "2026-05-29T04:53:19Z",
   "status": {
     "wicks-tbc-bis-tracker": "live",
     "wicks-cd-tracker": "live",
@@ -7,6 +7,7 @@
     "wicks-macro-builder": "live",
     "wicks-combat-log": "live",
     "wicks-stats": "live",
-    "wicks-quest-key": "live"
+    "wicks-quest-key": "live",
+    "wicks-survivors": "pending"
   }
 }
