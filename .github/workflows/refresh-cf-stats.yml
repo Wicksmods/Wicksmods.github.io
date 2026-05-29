@@ -32,10 +32,11 @@ jobs:
           set -euo pipefail
           mkdir -p data
           TOTAL=0
-          # Project IDs from wick.json
+          # Project IDs from wick.json (all shipped, non-benched addons)
           # 1502804 BIS, 1519243 CD, 1502890 Trade, 1521208 Macro, 1525232 Combat,
-          # 1532082 Stats, 1533199 Quest Key, 1557237 Survivors
-          for ID in 1502804 1519243 1502890 1521208 1525232 1532082 1533199 1557237; do
+          # 1532082 Stats, 1533199 Quest Key, 1535194 Totems, 1537836 Bags,
+          # 1538543 Travel Form, 1540943 Wardrobe, 1542398 Ledger, 1557237 Survivors
+          for ID in 1502804 1519243 1502890 1521208 1525232 1532082 1533199 1535194 1537836 1538543 1540943 1542398 1557237; do
             BODY=$(curl -sf \
               -H "x-api-key: $CF_CORE_API_KEY" \
               -A "Wicksmods landing-page stat refresher (https://github.com/Wicksmods/Wicksmods.github.io)" \
@@ -74,6 +75,11 @@ jobs:
             wicks-combat-log
             wicks-stats
             wicks-quest-key
+            wicks-totems-and-things
+            wicks-bags
+            wicks-travel-form
+            wicks-wardrobe
+            wicks-ledger
             wicks-survivors
           )
 
