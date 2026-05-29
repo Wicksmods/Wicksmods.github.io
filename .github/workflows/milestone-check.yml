@@ -69,9 +69,14 @@ jobs:
             if [ "$TOTAL" -ge "$M" ]; then
               echo "  *** NEW MILESTONE: $M ***"
 
-              # Format numbers with awk (no node needed)
-              FORMATTED=$(printf "%'.f" "$M" | sed 's/,/,/g' || echo "$M")
-              TOTAL_FMT=$(printf "%'.f" "$TOTAL" | sed 's/,/,/g' || echo "$TOTAL")
+              # Format numbers with commas (locale-safe awk)
+              fmt_num() { echo "$1" | awk '{
+                n = $1; s = ""
+                while (n >= 1000) { m = n % 1000; n = int(n/1000)
+                  s = (m < 10 ? ",00" : m < 100 ? ",0" : ",") m s }
+                print n s }'; }
+              FORMATTED=$(fmt_num "$M")
+              TOTAL_FMT=$(fmt_num "$TOTAL")
 
               if   [ "$M" -eq 2500   ]; then HEADLINE="2,500 downloads. To every raider, alt-aholic, and addon hoarder who installed something from the suite -- thank you. This is just the start."
               elif [ "$M" -eq 5000   ]; then HEADLINE="5,000 downloads. That's a lot of cooldowns tracked, macros built, and bags sorted. Genuinely grateful for every install."
