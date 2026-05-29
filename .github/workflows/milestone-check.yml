@@ -7,7 +7,7 @@ name: Download milestone check
 
 on:
   schedule:
-    - cron: '47 */3 * * *'   # every 3 hours, off the hour
+    - cron: '47 */4 * * *'   # every 4 hours, off the hour
   workflow_dispatch:
 
 permissions:
