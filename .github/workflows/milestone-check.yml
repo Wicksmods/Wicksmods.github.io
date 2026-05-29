@@ -73,16 +73,16 @@ jobs:
               FORMATTED=$(printf "%'.f" "$M" | sed 's/,/,/g' || echo "$M")
               TOTAL_FMT=$(printf "%'.f" "$TOTAL" | sed 's/,/,/g' || echo "$TOTAL")
 
-              if   [ "$M" -eq 2500   ]; then HEADLINE="2,500 downloads. The guild is growing."
-              elif [ "$M" -eq 5000   ]; then HEADLINE="5,000 downloads. We're raiding."
-              elif [ "$M" -eq 10000  ]; then HEADLINE="10,000 downloads. That's a full raid tier."
-              elif [ "$M" -eq 25000  ]; then HEADLINE="25,000 downloads. Sunwell-level numbers."
-              elif [ "$M" -eq 50000  ]; then HEADLINE="50,000 downloads. Legendary."
-              elif [ "$M" -eq 100000 ]; then HEADLINE="100,000 downloads. The Wick empire is real."
-              else                           HEADLINE="${FORMATTED} downloads."
+              if   [ "$M" -eq 2500   ]; then HEADLINE="2,500 downloads. To every raider, alt-aholic, and addon hoarder who installed something from the suite -- thank you. This is just the start."
+              elif [ "$M" -eq 5000   ]; then HEADLINE="5,000 downloads. That's a lot of cooldowns tracked, macros built, and bags sorted. Genuinely grateful for every install."
+              elif [ "$M" -eq 10000  ]; then HEADLINE="10,000 downloads. From one solo dev to ten thousand TBC players -- this means everything. See you in Outland."
+              elif [ "$M" -eq 25000  ]; then HEADLINE="25,000 downloads. The suite has come a long way since the first BIS list. Thank you for making it part of your UI."
+              elif [ "$M" -eq 50000  ]; then HEADLINE="50,000 downloads. Half way to a hundred thousand TBC players trusting Wick's addons in their UI. Blown away."
+              elif [ "$M" -eq 100000 ]; then HEADLINE="100,000 downloads. Started as a BIS tracker for my own raid group. Thank you for making it something so much bigger."
+              else                           HEADLINE="${FORMATTED} downloads. Thank you for every install."
               fi
 
-              BODY="Wick's Mods just crossed ${FORMATTED} total downloads on CurseForge. ${TOTAL_FMT} and counting. Thanks for using the suite."
+              BODY="${TOTAL_FMT} total downloads across the suite on CurseForge."
               FOOTER="Wick's Mods"
 
               # Discord
