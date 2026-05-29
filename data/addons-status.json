@@ -1,5 +1,5 @@
 {
-  "updated": "2026-05-29T05:07:59Z",
+  "updated": "2026-05-29T11:40:18Z",
   "status": {
     "wicks-tbc-bis-tracker": "live",
     "wicks-cd-tracker": "live",
@@ -13,6 +13,6 @@
     "wicks-travel-form": "live",
     "wicks-wardrobe": "live",
     "wicks-ledger": "live",
-    "wicks-survivors": "pending"
+    "wicks-survivors": "live"
   }
 }
