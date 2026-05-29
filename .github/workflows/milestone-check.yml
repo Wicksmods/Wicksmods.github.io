@@ -1,0 +1,149 @@
+name: Download milestone check
+
+# Checks the CF download total every 3 hours and posts a celebratory message
+# to Discord (and Facebook if token is valid) when a milestone is first crossed.
+# Milestones already hit are recorded in data/milestones-hit.json so they never
+# fire twice.
+
+on:
+  schedule:
+    - cron: '47 */3 * * *'   # every 3 hours, off the hour
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  MILESTONES: '2500 5000 10000 25000 50000 100000'
+  DISCORD_CHANNEL_ID: '1502850493658042391'
+  FB_PAGE_ID: '1183968144796759'
+  CF_SUITE_URL: 'https://www.curseforge.com/members/wick/projects'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch current download total
+        id: total
+        env:
+          CF_CORE_API_KEY: ${{ secrets.CF_CORE_API_KEY }}
+        run: |
+          set -euo pipefail
+          TOTAL=0
+          for ID in 1502804 1519243 1502890 1521208 1525232 1532082 1533199 1535194 1537836 1538543 1540943 1542398 1557237; do
+            BODY=$(curl -sf \
+              -H "x-api-key: $CF_CORE_API_KEY" \
+              -A "Wicksmods milestone checker (https://github.com/Wicksmods/Wicksmods.github.io)" \
+              "https://api.curseforge.com/v1/mods/$ID" \
+              || echo '{"data":{}}')
+            P=$(echo "$BODY" | jq '.data.downloadCount // 0')
+            TOTAL=$((TOTAL + P))
+          done
+          echo "total=$TOTAL" >> "$GITHUB_OUTPUT"
+          echo "Current total: $TOTAL"
+
+      - name: Check milestones and post
+        env:
+          TOTAL: ${{ steps.total.outputs.total }}
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
+        run: |
+          set -euo pipefail
+          mkdir -p data
+
+          # Load already-hit milestones
+          if [ -f data/milestones-hit.json ]; then
+            HIT=$(cat data/milestones-hit.json)
+          else
+            HIT='[]'
+          fi
+
+          CHANGED=false
+
+          for M in $MILESTONES; do
+            # Skip if already hit
+            if echo "$HIT" | jq -e --argjson m "$M" 'contains([$m])' > /dev/null; then
+              echo "  $M already hit, skipping"
+              continue
+            fi
+
+            # Check if we've crossed it
+            if [ "$TOTAL" -ge "$M" ]; then
+              echo "  *** NEW MILESTONE: $M ***"
+
+              # Format number with commas using node
+              FORMATTED=$(node -e "console.log(Number($M).toLocaleString('en-US'))")
+              TOTAL_FORMATTED=$(node -e "console.log(Number($TOTAL).toLocaleString('en-US'))")
+
+              # Choose message flavour by milestone
+              if   [ "$M" -eq 2500  ]; then HEADLINE="2,500 downloads. The guild is growing."
+              elif [ "$M" -eq 5000  ]; then HEADLINE="5,000 downloads. We're raiding."
+              elif [ "$M" -eq 10000 ]; then HEADLINE="10,000 downloads. That's a full raid tier."
+              elif [ "$M" -eq 25000 ]; then HEADLINE="25,000 downloads. Sunwell-level numbers."
+              elif [ "$M" -eq 50000 ]; then HEADLINE="50,000 downloads. Legendary."
+              elif [ "$M" -eq 100000]; then HEADLINE="100,000 downloads. The Wick empire is real."
+              else                          HEADLINE="${FORMATTED} downloads."
+              fi
+
+              BODY="Wick's Mods just crossed ${FORMATTED} total downloads on CurseForge. ${TOTAL_FORMATTED} and counting. Thanks for using the suite."
+
+              # ── Discord ──────────────────────────────────────────────
+              DISCORD_PAYLOAD=$(jq -n \
+                --arg headline "$HEADLINE" \
+                --arg body "$BODY" \
+                --arg url "$CF_SUITE_URL" \
+                --argjson color 5228408 \
+                '{
+                  embeds: [{
+                    title: $headline,
+                    description: $body,
+                    color: $color,
+                    fields: [{ name: "Browse the suite", value: ("[CurseForge](" + $url + ")"), inline: true }],
+                    footer: { text: "Wick'\''s Mods" }
+                  }]
+                }')
+              DISCORD_RESP=$(curl -s -X POST \
+                -H "Authorization: Bot $DISCORD_BOT_TOKEN" \
+                -H "Content-Type: application/json" \
+                -d "$DISCORD_PAYLOAD" \
+                "https://discord.com/api/v10/channels/$DISCORD_CHANNEL_ID/messages")
+              echo "  Discord: $DISCORD_RESP"
+
+              # ── Facebook (best-effort, skips cleanly if token invalid) ──
+              FB_MSG="${HEADLINE}
+
+${BODY}
+
+${CF_SUITE_URL}"
+              FB_RESP=$(curl -s -X POST \
+                "https://graph.facebook.com/v21.0/$FB_PAGE_ID/feed" \
+                -F "access_token=$FB_PAGE_TOKEN" \
+                -F "message=$FB_MSG" || echo '{"skipped":true}')
+              echo "  Facebook: $(echo $FB_RESP | head -c 120)"
+
+              # Record milestone as hit
+              HIT=$(echo "$HIT" | jq --argjson m "$M" '. + [$m]')
+              CHANGED=true
+            fi
+          done
+
+          if [ "$CHANGED" = "true" ]; then
+            echo "$HIT" | jq '.' > data/milestones-hit.json
+            echo "Wrote milestones-hit.json: $HIT"
+          else
+            echo "No new milestones crossed."
+          fi
+
+      - name: Commit if milestones updated
+        run: |
+          git config user.name "Wick"
+          git config user.email "wicksmods@gmail.com"
+          git add data/milestones-hit.json
+          if git diff --staged --quiet; then
+            echo "No change."
+          else
+            git commit -m "Record milestone hit"
+            git push
+          fi
