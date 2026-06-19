@@ -1,11 +1,11 @@
 {
-  "updated": "2026-06-19T18:06:07Z",
+  "updated": "2026-06-19T21:21:22Z",
   "status": {
     "wicks-tbc-bis-tracker": "live",
     "wicks-cd-tracker": "live",
     "trade-hall": "live",
     "wicks-macro-builder": "live",
-    "wicks-combat-log": "pending",
+    "wicks-combat-log": "live",
     "wicks-stats": "live",
     "wicks-quest-key": "live",
     "wicks-totems-and-things": "live",
