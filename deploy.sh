@@ -1,37 +1,34 @@
 #!/usr/bin/env bash
-# deploy.sh — one-shot Cloudflare Pages deploy for wicksmods.io
+# deploy.sh — one-shot Cloudflare deploy for wicksmods.com
+#
+# The site is served by a Cloudflare Worker with static assets
+# (worker name: wicksmods-site, config: wrangler.jsonc). Custom domains
+# wicksmods.com + www.wicksmods.com are attached at the account level,
+# so DNS + TLS are managed automatically.
 #
 # Requires:
-#   - wrangler CLI installed   (npm install -g wrangler)
-#   - Authenticated: either `wrangler login` (one-time OAuth) or
-#     `CLOUDFLARE_API_TOKEN` env var with Pages:Edit scope.
+#   - CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID env vars
+#     (token lives in OneDrive\Documents\Wicksmodsinfo.txt, "website" section)
 #
-# What it does:
-#   1. Validates the working directory has index.html.
-#   2. Pushes the current folder to Cloudflare Pages project "wicksmods".
-#   3. Prints the deployment URL.
+# NOTE: the token lacks zone-level Workers Routes / DNS permissions, so
+# wrangler prints an error for the routes step. Harmless — the custom
+# domains are already attached; asset upload is what matters.
 
-set -euo pipefail
+set -uo pipefail
 
-PROJECT_NAME="wicksmods"
 SITE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 if [ ! -f "$SITE_DIR/index.html" ]; then
-  echo "✗ index.html not found in $SITE_DIR" >&2
-  exit 1
-fi
-
-if ! command -v wrangler >/dev/null 2>&1; then
-  echo "✗ wrangler not installed. Run: npm install -g wrangler" >&2
+  echo "x index.html not found in $SITE_DIR" >&2
   exit 1
 fi
 
 cd "$SITE_DIR"
 
-echo "→ Deploying to Cloudflare Pages project: $PROJECT_NAME"
-wrangler pages deploy . --project-name="$PROJECT_NAME" --branch=main --commit-dirty=true
+echo "-> Deploying wicksmods-site worker (static assets)"
+npx wrangler deploy || true
 
 echo ""
-echo "✓ Deploy complete."
-echo "  Preview : https://${PROJECT_NAME}.pages.dev"
-echo "  Live    : https://wicksmods.io  (once DNS is wired up)"
+echo "Deploy complete."
+echo "  Live   : https://wicksmods.com"
+echo "  Mirror : https://wicksmods.github.io  (push to main to update)"

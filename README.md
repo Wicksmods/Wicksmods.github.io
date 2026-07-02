@@ -2,7 +2,7 @@
 
 Static landing page for the **Wick suite** — precision addons for World of Warcraft TBC Classic.
 
-🌐 **Live site:** [wicksmods.io](https://wicksmods.io)
+🌐 **Live site:** [wicksmods.com](https://wicksmods.com)
 
 ## The suite
 

@@ -1,0 +1,7 @@
+.git
+.assetsignore
+wrangler.jsonc
+deploy.sh
+DEPLOYMENT.md
+README.md
+CNAME.template
