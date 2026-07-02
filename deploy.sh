@@ -10,11 +10,10 @@
 #   - CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID env vars
 #     (token lives in OneDrive\Documents\Wicksmodsinfo.txt, "website" section)
 #
-# NOTE: the token lacks zone-level Workers Routes / DNS permissions, so
-# wrangler prints an error for the routes step. Harmless — the custom
-# domains are already attached; asset upload is what matters.
+# CI note: .github/workflows/refresh-cf-stats.yml runs the same deploy
+# after each stats refresh so the Worker copy never goes stale.
 
-set -uo pipefail
+set -euo pipefail
 
 SITE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -26,7 +25,7 @@ fi
 cd "$SITE_DIR"
 
 echo "-> Deploying wicksmods-site worker (static assets)"
-npx wrangler deploy || true
+npx wrangler deploy
 
 echo ""
 echo "Deploy complete."

@@ -6,9 +6,8 @@
   "assets": {
     "directory": ".",
     "html_handling": "auto-trailing-slash"
-  },
-  "routes": [
-    { "pattern": "wicksmods.com", "custom_domain": true },
-    { "pattern": "www.wicksmods.com", "custom_domain": true }
-  ]
+  }
+  // Custom domains (wicksmods.com, www.wicksmods.com) are attached at the
+  // account level (Workers -> wicksmods-site -> Domains & Routes), NOT here.
+  // Declaring them as routes would need zone-level token scopes we don't have.
 }
