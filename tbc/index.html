@@ -3,30 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wick's Mods &mdash; Precision Addons for World of Warcraft: Forever</title>
-<meta name="description" content="A suite of precision addons for World of Warcraft: Forever. One palette, one voice, one chrome. Bags, class kits, comforts, all on WickCore.">
-<link rel="canonical" href="https://wicksmods.com/">
+<title>Wick's Mods — Precision Addons for TBC Classic</title>
+<meta name="description" content="A suite of precision addons for TBC Classic. One palette, one voice, one chrome. Wick's TBC BIS Tracker, CD Tracker, Trade Hall, Macro Builder, Combat Log.">
+<link rel="canonical" href="https://wicksmods.com/tbc/">
 
-<link rel="icon" type="image/png" sizes="256x256" href="images/favicon.png">
-<link rel="apple-touch-icon" sizes="256x256" href="images/favicon.png">
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="256x256" href="../images/favicon.png">
+<link rel="apple-touch-icon" sizes="256x256" href="../images/favicon.png">
 
+<!-- Open Graph — canonical domain is wicksmods.com (Cloudflare Worker);
+     wicksmods.github.io remains as a mirror -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Wick's Mods &mdash; Precision Addons for World of Warcraft: Forever">
-<meta property="og:description" content="A suite of precision addons. One locked palette. One voice. Now building for Forever.">
+<meta property="og:title" content="Wick's Mods — Precision Addons for TBC Classic">
+<meta property="og:description" content="A suite of precision addons. One locked palette. One voice. Built to be read at-a-glance during combat.">
 <meta property="og:image" content="https://wicksmods.com/images/suite/banner-2x.png">
 <meta property="og:image:width" content="1720">
 <meta property="og:image:height" content="640">
-<meta property="og:image:alt" content="Wick's Suite, precision addons, displayed as branded vertical cards.">
-<meta property="og:url" content="https://wicksmods.com">
+<meta property="og:image:alt" content="Wick's Suite — precision addons for TBC Classic, displayed as branded vertical cards.">
+<meta property="og:url" content="https://wicksmods.com/tbc">
 <meta property="og:site_name" content="Wick's Mods">
 
+<!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@wicksmods">
 <meta name="twitter:creator" content="@wicksmods">
-<meta name="twitter:title" content="Wick's Mods &mdash; Precision Addons for World of Warcraft: Forever">
+<meta name="twitter:title" content="Wick's Mods — Precision Addons for TBC Classic">
 <meta name="twitter:description" content="A suite of precision addons. One locked palette. One voice.">
 <meta name="twitter:image" content="https://wicksmods.com/images/suite/banner-2x.png">
+<meta name="twitter:image:alt" content="Wick's Suite — precision addons for TBC Classic.">
 
+<!-- Theme color (mobile browser chrome) -->
 <meta name="theme-color" content="#0D0A14">
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -356,36 +362,10 @@
     .wordmark-sub { font-size: 18px; letter-spacing: 0.3em; }
   }
 </style>
-<style>
-  .beta-band {
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    background: var(--shadow);
-    padding: 34px 28px;
-    text-align: center;
-  }
-  .beta-band h2 {
-    font-family: 'Cinzel', serif;
-    font-size: 22px;
-    letter-spacing: 0.04em;
-    margin-bottom: 10px;
-  }
-  .beta-band p {
-    color: var(--text-dim);
-    max-width: 660px;
-    margin: 0 auto 18px;
-    font-size: 15px;
-  }
-  .beta-note {
-    color: var(--text-mute);
-    font-size: 13px;
-    max-width: 660px;
-    margin: 16px auto 0;
-  }
-</style>
 </head>
 <body>
 
+<!-- Reusable flame-as-i SVG symbol used by the wordmark. -->
 <svg width="0" height="0" style="position:absolute;" aria-hidden="true">
   <defs>
     <symbol id="flame-i" viewBox="20 0 40 91">
@@ -402,192 +382,368 @@
   </defs>
 </svg>
 
+<!-- HERO ────────────────────────────────────────────────── -->
 <section class="hero">
-  <div class="hero-eyebrow">World of Warcraft &middot; Forever</div>
+  <div class="hero-eyebrow">World of Warcraft · TBC Classic</div>
   <div class="wordmark">W<svg width="40" height="91"><use href="#flame-i"/></svg>ck<span class="apo">'</span>s</div>
   <div class="wordmark-sub">MODS</div>
   <div class="hero-tagline">
-    <em>A suite of precision addons.</em> One locked palette. One voice. Rebuilt for Forever on a shared core, and written around the new addon rules rather than against them.
+    <em>A suite of precision addons.</em> One locked palette. One voice. Built to be read at-a-glance during combat — not between pulls.
   </div>
   <div class="hero-actions">
-    <a href="https://github.com/Wicksmods/WickSuite/releases/tag/forever-beta-2026-09-19" class="btn primary">Download the beta &darr;</a>
-    <a href="#suite" class="btn">Browse the Suite</a>
-    <a href="https://discord.gg/GWGTMhYBZY" class="btn">Discord &rarr;</a>
-    <a href="https://github.com/Wicksmods" class="btn">GitHub &rarr;</a>
+    <a href="#suite" class="btn primary">Browse the Suite ↓</a>
+    <a href="https://discord.gg/GWGTMhYBZY" class="btn">Discord →</a>
+    <a href="https://github.com/Wicksmods" class="btn">GitHub →</a>
+  </div>
+  <div class="hero-tagline" style="margin-top:26px;font-size:15px">
+    Playing <em>World of Warcraft: Forever</em>? <a href="/">The Forever suite is over here</a>.
   </div>
 </section>
 
-<section class="beta-band">
-  <h2>Beta build, hosted on GitHub</h2>
-  <p>
-    Forever is still in beta, so the suite is too. One zip holds WickCore, the bags,
-    the comforts and every class kit. Drop the folders into
-    <code>_classic_beta_\Interface\AddOns</code> and they are ready.
-  </p>
-  <a href="https://github.com/Wicksmods/WickSuite/releases/tag/forever-beta-2026-09-19" class="btn primary">Get the beta package</a>
-  <div class="beta-note">
-    Known issue on the beta client: settings do not survive a reload. The game writes
-    them correctly and never reads them back, which affects every addon, not only these.
-    They will start sticking on their own once Blizzard fixes it.
-  </div>
+<!-- STAT BAND ───────────────────────────────────────────── -->
+<section class="stat-band">
+  <div class="stat-eyebrow">— Trusted by raiders —</div>
+  <div class="stat-number" id="total-downloads" data-default="3209">3209</div>
+  <div class="stat-label">Downloads <span class="accent">·</span> CurseForge</div>
 </section>
 
+<!-- SUITE GRID ─────────────────────────────────────────── -->
 <section class="container" id="suite">
-  <div class="section-label">The Forever Suite</div>
+  <div class="section-label">The Suite</div>
 
   <div class="grid">
 
+    <!-- BIS Tracker -->
     <div class="card">
       <div class="br tl"><div class="h"></div><div class="v"></div></div>
       <div class="br tr"><div class="h"></div><div class="v"></div></div>
       <div class="br bl"><div class="h"></div><div class="v"></div></div>
       <div class="br br"><div class="h"></div><div class="v"></div></div>
+      <div class="card-thumb">
+        <img src="../images/bis/thumb.png" alt="Wick's TBC BIS Tracker">
+      </div>
       <div class="card-meta">
-        <div class="card-name">WickCore</div>
-        <div class="card-tagline">The floor everything else stands on. Brand chrome, profiles, themes, one options panel, and the shim that keeps the suite honest across clients.</div>
-        <div class="card-slash">/wickcore</div>
-        <div class="card-actions"><a href="https://github.com/Wicksmods/WickCore" class="card-btn">GitHub</a></div>
+        <div class="card-name"><span class="apo">Wick's</span> TBC BIS Tracker</div>
+        <div class="card-tagline">Best-in-slot gear tracking for every class, every spec, every phase of TBC Classic.</div>
+        <div class="card-slash">/wtbt</div>
+        <div class="card-actions">
+          <a href="https://www.curseforge.com/wow/addons/wicks-tbc-bis-tracker" class="card-btn cf">CurseForge</a>
+          <a href="https://github.com/Wicksmods/WickidsTBCBISTracker" class="card-btn">GitHub</a>
+        </div>
       </div>
     </div>
 
+    <!-- CD Tracker -->
     <div class="card">
       <div class="br tl"><div class="h"></div><div class="v"></div></div>
       <div class="br tr"><div class="h"></div><div class="v"></div></div>
       <div class="br bl"><div class="h"></div><div class="v"></div></div>
       <div class="br br"><div class="h"></div><div class="v"></div></div>
+      <div class="card-thumb">
+        <img src="../images/cd/thumb.png" alt="Wick's CD Tracker">
+      </div>
       <div class="card-meta">
-        <div class="card-name"><span class="apo">Wick's</span> Bags</div>
-        <div class="card-tagline">Bags and bank in one window, sorted into categories you control. Quiver and reagents collapse to a single counted tile.</div>
-        <div class="card-slash">/wbags</div>
-        <div class="card-actions"><a href="https://github.com/Wicksmods/WicksBags" class="card-btn">GitHub</a></div>
+        <div class="card-name"><span class="apo">Wick's</span> CD Tracker</div>
+        <div class="card-tagline">Live party / raid cooldown tracker. Kicks, saves, offensives, utility — one tight panel.</div>
+        <div class="card-slash">/wcdt</div>
+        <div class="card-actions">
+          <a href="https://www.curseforge.com/wow/addons/wicks-cd-tracker" class="card-btn cf">CurseForge</a>
+          <a href="https://github.com/Wicksmods/WicksCDTracker" class="card-btn">GitHub</a>
+        </div>
       </div>
     </div>
 
+    <!-- Trade Hall -->
     <div class="card">
       <div class="br tl"><div class="h"></div><div class="v"></div></div>
       <div class="br tr"><div class="h"></div><div class="v"></div></div>
       <div class="br bl"><div class="h"></div><div class="v"></div></div>
       <div class="br br"><div class="h"></div><div class="v"></div></div>
+      <div class="card-thumb">
+        <img src="../images/trade/thumb.png" alt="Wick's Trade Hall">
+      </div>
       <div class="card-meta">
-        <div class="card-name"><span class="apo">Wick's</span> Comforts</div>
-        <div class="card-tagline">Square minimap in Wick chrome, richer tooltips, auto loot, auto repair and junk selling. Every one of them off until you turn it on.</div>
-        <div class="card-slash">/wcomfort</div>
-        <div class="card-actions"><a href="https://github.com/Wicksmods/WicksComforts" class="card-btn">GitHub</a></div>
+        <div class="card-name"><span class="apo">Wick's</span> Trade Hall</div>
+        <div class="card-tagline">Trade channel as a bulletin board. Seven categories, aged-out listings, no wall-of-spam.</div>
+        <div class="card-slash">/wth</div>
+        <div class="card-actions">
+          <a href="https://www.curseforge.com/wow/addons/trade-hall" class="card-btn cf">CurseForge</a>
+          <a href="https://github.com/Wicksmods/WicksTradeHall" class="card-btn">GitHub</a>
+        </div>
       </div>
     </div>
 
+    <!-- Macro Builder -->
     <div class="card">
       <div class="br tl"><div class="h"></div><div class="v"></div></div>
       <div class="br tr"><div class="h"></div><div class="v"></div></div>
       <div class="br bl"><div class="h"></div><div class="v"></div></div>
       <div class="br br"><div class="h"></div><div class="v"></div></div>
+      <div class="card-thumb">
+        <img src="../images/macro/thumb.png" alt="Wick's Macro Builder">
+      </div>
+      <div class="card-meta">
+        <div class="card-name"><span class="apo">Wick's</span> Macro Builder</div>
+        <div class="card-tagline">Click-to-insert chips, drag macros to action bars, curated presets for all 9 classes.</div>
+        <div class="card-slash">/wsmb</div>
+        <div class="card-actions">
+          <a href="https://www.curseforge.com/wow/addons/wicks-macro-builder" class="card-btn cf">CurseForge</a>
+          <a href="https://github.com/Wicksmods/WicksMacroBuilder" class="card-btn">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Combat Log -->
+    <div class="card">
+      <div class="br tl"><div class="h"></div><div class="v"></div></div>
+      <div class="br tr"><div class="h"></div><div class="v"></div></div>
+      <div class="br bl"><div class="h"></div><div class="v"></div></div>
+      <div class="br br"><div class="h"></div><div class="v"></div></div>
+      <div class="card-thumb">
+        <img src="../images/combat/thumb.png" alt="Wick's Combat Log">
+      </div>
+      <div class="card-meta">
+        <div class="card-name"><span class="apo">Wick's</span> Combat Log</div>
+        <div class="card-tagline">Raw COMBAT_LOG_EVENT_UNFILTERED viewer. Every subevent, every arg, with filters and side-panel inspection.</div>
+        <div class="card-slash">/wcl</div>
+        <div class="card-actions">
+          <a href="https://www.curseforge.com/wow/addons/wicks-combat-log" class="card-btn cf">CurseForge</a>
+          <a href="https://github.com/Wicksmods/WicksCombatLog" class="card-btn">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="card">
+      <div class="br tl"><div class="h"></div><div class="v"></div></div>
+      <div class="br tr"><div class="h"></div><div class="v"></div></div>
+      <div class="br bl"><div class="h"></div><div class="v"></div></div>
+      <div class="br br"><div class="h"></div><div class="v"></div></div>
+      <div class="card-thumb">
+        <img src="../images/stats/thumb.png" alt="Wick's Stats">
+      </div>
+      <div class="card-meta">
+        <div class="card-name"><span class="apo">Wick's</span> Stats</div>
+        <div class="card-tagline">Detailed character stat panel docked next to the character frame. Shows everything Blizzard hides.</div>
+        <div class="card-slash">/wstats</div>
+        <div class="card-actions">
+          <a href="https://www.curseforge.com/wow/addons/wicks-stats" class="card-btn cf">CurseForge</a>
+          <a href="https://github.com/Wicksmods/WicksStats" class="card-btn">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quest Key -->
+    <div class="card">
+      <div class="br tl"><div class="h"></div><div class="v"></div></div>
+      <div class="br tr"><div class="h"></div><div class="v"></div></div>
+      <div class="br bl"><div class="h"></div><div class="v"></div></div>
+      <div class="br br"><div class="h"></div><div class="v"></div></div>
+      <div class="card-thumb">
+        <img src="../images/questkey/thumb.png" alt="Wick's Quest Key">
+      </div>
+      <div class="card-meta">
+        <div class="card-name"><span class="apo">Wick's</span> Quest Key</div>
+        <div class="card-tagline">Retail-style ExtraActionButton for TBC Classic. One bind to use the active quest item, auto-detected from your quest log.</div>
+        <div class="card-slash">/wqk</div>
+        <div class="card-actions">
+          <a href="https://www.curseforge.com/wow/addons/wicks-quest-key" class="card-btn cf">CurseForge</a>
+          <a href="https://github.com/Wicksmods/WicksQuestKey" class="card-btn">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Totems and Things -->
+    <div class="card">
+      <div class="br tl"><div class="h"></div><div class="v"></div></div>
+      <div class="br tr"><div class="h"></div><div class="v"></div></div>
+      <div class="br bl"><div class="h"></div><div class="v"></div></div>
+      <div class="br br"><div class="h"></div><div class="v"></div></div>
+      <div class="card-thumb">
+        <img src="../images/totems/thumb.png" alt="Wick's Totems and Things">
+      </div>
       <div class="card-meta">
         <div class="card-name"><span class="apo">Wick's</span> Totems and Things</div>
-        <div class="card-tagline">Shaman. Totem presets, a secure cast bar, Call of the Elements sync and imbues.</div>
+        <div class="card-tagline">Shaman totem twist + proc tracker. Drop sets on one keybind, see who's in range, and never miss a Windfury or Stormstrike refresh.</div>
         <div class="card-slash">/wtt</div>
-        <div class="card-actions"><a href="https://github.com/Wicksmods/WicksTotemsAndThings" class="card-btn">GitHub</a></div>
+        <div class="card-actions">
+          <a href="https://www.curseforge.com/wow/addons/wicks-totems-and-things" class="card-btn cf">CurseForge</a>
+          <a href="https://github.com/Wicksmods/WicksTotemsAndThings" class="card-btn">GitHub</a>
+        </div>
       </div>
     </div>
 
+    <!-- Bags -->
     <div class="card">
       <div class="br tl"><div class="h"></div><div class="v"></div></div>
       <div class="br tr"><div class="h"></div><div class="v"></div></div>
       <div class="br bl"><div class="h"></div><div class="v"></div></div>
       <div class="br br"><div class="h"></div><div class="v"></div></div>
+      <div class="card-thumb">
+        <img src="../images/bags/thumb.png" alt="Wick's Bags">
+      </div>
       <div class="card-meta">
-        <div class="card-name"><span class="apo">Wick's</span> Demons and Things</div>
-        <div class="card-tagline">Warlock. Soul bar, pet bar and shard counter, rebuilt for the new rules.</div>
-        <div class="card-slash">/wdt</div>
-        <div class="card-actions"><a href="https://github.com/Wicksmods/WicksDemonsAndThings" class="card-btn">GitHub</a></div>
+        <div class="card-name"><span class="apo">Wick's</span> Bags</div>
+        <div class="card-tagline">Categorized bag and bank panels for TBC Classic. Auto-categorize, masonry layout, ItemRack integration, secure right-click for combat consumables.</div>
+        <div class="card-slash">/wbags</div>
+        <div class="card-actions">
+          <a href="https://www.curseforge.com/wow/addons/wicks-bags" class="card-btn cf">CurseForge</a>
+          <a href="https://github.com/Wicksmods/WicksBags" class="card-btn">GitHub</a>
+        </div>
       </div>
     </div>
 
+    <!-- Travel Form -->
     <div class="card">
       <div class="br tl"><div class="h"></div><div class="v"></div></div>
       <div class="br tr"><div class="h"></div><div class="v"></div></div>
       <div class="br bl"><div class="h"></div><div class="v"></div></div>
       <div class="br br"><div class="h"></div><div class="v"></div></div>
+      <div class="card-thumb">
+        <img src="../images/travel/thumb.png" alt="Wick's Travel Form">
+      </div>
       <div class="card-meta">
-        <div class="card-name"><span class="apo">Wick's</span> Forms and Things</div>
-        <div class="card-tagline">Druid. One smart keybind that resolves to the right form for where you are standing.</div>
-        <div class="card-slash">/wft</div>
-        <div class="card-actions"><a href="https://github.com/Wicksmods/WicksFormsAndThings" class="card-btn">GitHub</a></div>
+        <div class="card-name"><span class="apo">Wick's</span> Travel Form</div>
+        <div class="card-tagline">One druid keybind. Picks Flight, Travel, Aquatic, or Cat by where you are right now. Works around TBC's broken IsFlyableArea API.</div>
+        <div class="card-slash">/wstf</div>
+        <div class="card-actions">
+          <a href="https://www.curseforge.com/wow/addons/wicks-travel-form" class="card-btn cf">CurseForge</a>
+          <a href="https://github.com/Wicksmods/WicksTravelForm" class="card-btn">GitHub</a>
+        </div>
       </div>
     </div>
 
+    <!-- Ledger -->
     <div class="card">
       <div class="br tl"><div class="h"></div><div class="v"></div></div>
       <div class="br tr"><div class="h"></div><div class="v"></div></div>
       <div class="br bl"><div class="h"></div><div class="v"></div></div>
       <div class="br br"><div class="h"></div><div class="v"></div></div>
+      <div class="card-thumb">
+        <img src="../images/ledger/thumb.png" alt="Wick's Ledger">
+      </div>
       <div class="card-meta">
-        <div class="card-name"><span class="apo">Wick's</span> Beasts and Things</div>
-        <div class="card-tagline">Hunter. Pet happiness and loyalty, one-key feeding from your own bags, and an ammo watch.</div>
-        <div class="card-slash">/wbt</div>
-        <div class="card-actions"><a href="https://github.com/Wicksmods/WicksBeastsAndThings" class="card-btn">GitHub</a></div>
+        <div class="card-name"><span class="apo">Wick's</span> Ledger</div>
+        <div class="card-tagline">Session earnings tracker for TBC Classic. Every loot drop valued against TSM, Auctionator, or Auctioneer -- raw gold, items, XP, and rep in one slim panel.</div>
+        <div class="card-slash">/wledger</div>
+        <div class="card-actions">
+          <a href="https://www.curseforge.com/wow/addons/wicks-ledger" class="card-btn cf">CurseForge</a>
+          <a href="https://github.com/Wicksmods/WicksLedger" class="card-btn">GitHub</a>
+        </div>
       </div>
     </div>
 
+    <!-- Survivors -->
     <div class="card">
+      <div class="new-badge">New</div>
       <div class="br tl"><div class="h"></div><div class="v"></div></div>
       <div class="br tr"><div class="h"></div><div class="v"></div></div>
       <div class="br bl"><div class="h"></div><div class="v"></div></div>
       <div class="br br"><div class="h"></div><div class="v"></div></div>
-      <div class="card-meta">
-        <div class="card-name"><span class="apo">Wick's</span> Poisons and Things</div>
-        <div class="card-tagline">Rogue. What coats each blade and how long it has left, with a coating key per hand.</div>
-        <div class="card-slash">/wpt</div>
-        <div class="card-actions"><a href="https://github.com/Wicksmods/WicksPoisonsAndThings" class="card-btn">GitHub</a></div>
+      <div class="card-thumb">
+        <img src="../images/survivors/thumb.png" alt="Wick's Survivors">
       </div>
-    </div>
-
-    <div class="card">
-      <div class="br tl"><div class="h"></div><div class="v"></div></div>
-      <div class="br tr"><div class="h"></div><div class="v"></div></div>
-      <div class="br bl"><div class="h"></div><div class="v"></div></div>
-      <div class="br br"><div class="h"></div><div class="v"></div></div>
-      <div class="card-meta">
-        <div class="card-name"><span class="apo">Wick's</span> Conjures and Things</div>
-        <div class="card-tagline">Mage. Rations and reagents counted at a glance, with a conjure key bound to the best rank you know.</div>
-        <div class="card-slash">/wcj</div>
-        <div class="card-actions"><a href="https://github.com/Wicksmods/WicksConjuresAndThings" class="card-btn">GitHub</a></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="br tl"><div class="h"></div><div class="v"></div></div>
-      <div class="br tr"><div class="h"></div><div class="v"></div></div>
-      <div class="br bl"><div class="h"></div><div class="v"></div></div>
-      <div class="br br"><div class="h"></div><div class="v"></div></div>
       <div class="card-meta">
         <div class="card-name"><span class="apo">Wick's</span> Survivors</div>
-        <div class="card-tagline">Wave survival minigame. Biomes, bosses, weapons and passives, inside your UI. Runs on Forever and on TBC.</div>
+        <div class="card-tagline">Vampire Survivors-style wave survival minigame for TBC Classic Anniversary. Survive endless undead waves, level up weapons and passives, fight iconic bosses.</div>
         <div class="card-slash">/survivors</div>
-        <div class="card-actions"><a href="https://www.curseforge.com/wow/addons/wicks-survivors" class="card-btn cf">CurseForge</a><a href="https://github.com/Wicksmods/WicksSurvivors" class="card-btn">GitHub</a></div>
+        <div class="card-actions">
+          <a href="https://www.curseforge.com/wow/addons/wicks-survivors" class="card-btn cf">CurseForge</a>
+          <a href="https://github.com/Wicksmods/WicksSurvivors" class="card-btn">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wardrobe -->
+    <div class="card">
+      <div class="br tl"><div class="h"></div><div class="v"></div></div>
+      <div class="br tr"><div class="h"></div><div class="v"></div></div>
+      <div class="br bl"><div class="h"></div><div class="v"></div></div>
+      <div class="br br"><div class="h"></div><div class="v"></div></div>
+      <div class="card-thumb">
+        <img src="../images/wardrobe/thumb.png" alt="Wick's Wardrobe">
+      </div>
+      <div class="card-meta">
+        <div class="card-name"><span class="apo">Wick's</span> Wardrobe</div>
+        <div class="card-tagline">Browse every TBC tier set and weapon on your own character. Click any item to preview it inline -- no vendor required.</div>
+        <div class="card-slash">/wwd</div>
+        <div class="card-actions">
+          <a href="https://www.curseforge.com/wow/addons/wicks-wardrobe" class="card-btn cf">CurseForge</a>
+          <a href="https://github.com/Wicksmods/WicksWardrobe" class="card-btn">GitHub</a>
+        </div>
       </div>
     </div>
 
   </div>
 </section>
 
+<!-- BRAND STRIP ─────────────────────────────────────────── -->
+<!-- CTA ─────────────────────────────────────────────────── -->
 <section class="cta">
   <h2><span class="apo">Wick's</span> first; nothing second.</h2>
-  <p>Every product stands on WickCore: one options panel, one set of profiles, one palette you can retheme per class. Built solo, by Wick.</p>
-  <a href="/tbc/" class="btn">Playing TBC Classic instead? &rarr;</a>
+  <p>Pick the addons you need from the suite. Each is fully self-contained — no shared dependencies, no library spaghetti. Built solo, by Wick.</p>
+  <a href="#suite" class="btn primary">↑ Back to the suite</a>
 </section>
 
+<!-- FOOTER ─────────────────────────────────────────────── -->
 <footer>
-  <div class="row">Wick &middot; World of Warcraft: Forever &middot; MIT licensed code &middot; Brand trademarked</div>
+  <div class="row">Wick · TBC Classic · MIT licensed code · Brand trademarked</div>
   <div class="row">
-    <a href="/tbc/">TBC Classic suite</a> &middot;
-    <a href="https://discord.gg/GWGTMhYBZY">Discord</a> &middot;
-    <a href="https://www.facebook.com/profile.php?id=61588703194645">Facebook</a> &middot;
-    <a href="https://x.com/wicksmods">X</a> &middot;
-    <a href="https://github.com/Wicksmods/WickSuite">WickSuite</a> &middot;
-    <a href="https://github.com/Wicksmods">Wicksmods on GitHub</a> &middot;
+    <a href="https://discord.gg/GWGTMhYBZY">Discord</a> ·
+    <a href="https://www.facebook.com/profile.php?id=61588703194645">Facebook</a> ·
+    <a href="https://x.com/wicksmods">X</a> ·
+    <a href="https://github.com/Wicksmods/WickSuite">WickSuite</a> ·
+    <a href="https://github.com/Wicksmods">Wicksmods on GitHub</a> ·
     <a href="https://www.curseforge.com/members/wick/projects">Wick on CurseForge</a>
   </div>
 </footer>
+
+<!-- Hydrate the live download counter from the GH-Action-refreshed JSON. -->
+<!-- Falls back silently to the seeded value if the fetch fails for any reason. -->
+<script>
+(() => {
+  const el = document.getElementById('total-downloads');
+  if (!el) return;
+  fetch('../data/downloads.json?_=' + Date.now(), { cache: 'no-store' })
+    .then(r => r.ok ? r.json() : null)
+    .then(d => {
+      if (d && typeof d.total === 'number') {
+        el.textContent = d.total.toLocaleString();
+      }
+    })
+    .catch(() => { /* keep seed */ });
+})();
+</script>
+
+<!-- Approval status: the GH Action HEADs each addon's CF slug every 6 hours -->
+<!-- and writes data/addons-status.json. Pending = the public slug 404s while -->
+<!-- CurseForge reviews a fresh upload. Cards in "pending" state get an amber  -->
+<!-- "Pending approval" badge and a disabled CF button. -->
+<script>
+(() => {
+  fetch('../data/addons-status.json?_=' + Date.now(), { cache: 'no-store' })
+    .then(r => r.ok ? r.json() : null)
+    .then(d => {
+      if (!d || !d.status) return;
+      const cards = document.querySelectorAll('#suite .card');
+      cards.forEach(card => {
+        const cf = card.querySelector('.card-btn.cf');
+        if (!cf) return;
+        const m = cf.getAttribute('href').match(/\/wow\/addons\/([^/?#]+)/);
+        if (!m) return;
+        const state = d.status[m[1]];
+        if (state !== 'pending') return;
+        card.classList.add('is-pending');
+        const badge = card.querySelector('.new-badge');
+        if (badge) {
+          badge.classList.add('pending');
+          badge.textContent = 'Pending approval';
+        }
+      });
+    })
+    .catch(() => { /* keep static badges */ });
+})();
+</script>
 
 </body>
 </html>
