@@ -1,0 +1,2 @@
+# The beta package is a binary; never let git touch its line endings.
+*.zip binary

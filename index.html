@@ -376,6 +376,37 @@
     margin: 0 auto 18px;
     font-size: 15px;
   }
+  .install-steps {
+    max-width: 660px;
+    margin: 0 auto 22px;
+    text-align: left;
+  }
+  .install-steps .step {
+    color: var(--text-dim);
+    font-size: 15px;
+    margin-bottom: 9px;
+    padding-left: 34px;
+    position: relative;
+  }
+  .install-steps .step-n {
+    position: absolute;
+    left: 0;
+    top: 1px;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    border: 1px solid var(--border);
+    color: var(--fel);
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+  }
+  .install-steps code {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .beta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
   .beta-note {
     color: var(--text-mute);
     font-size: 13px;
@@ -410,7 +441,7 @@
     <em>A suite of precision addons.</em> One locked palette. One voice. Rebuilt for Forever on a shared core, and written around the new addon rules rather than against them.
   </div>
   <div class="hero-actions">
-    <a href="https://github.com/Wicksmods/WickSuite/releases/tag/forever-beta-2026-09-19" class="btn primary">Download the beta &darr;</a>
+    <a href="/download/WicksMods-Forever-beta.zip" class="btn primary" download>Download the beta &darr;</a>
     <a href="#suite" class="btn">Browse the Suite</a>
     <a href="https://discord.gg/GWGTMhYBZY" class="btn">Discord &rarr;</a>
     <a href="https://github.com/Wicksmods" class="btn">GitHub &rarr;</a>
@@ -424,7 +455,15 @@
     the comforts and every class kit. Drop the folders into
     <code>_classic_beta_\Interface\AddOns</code> and they are ready.
   </p>
-  <a href="https://github.com/Wicksmods/WickSuite/releases/tag/forever-beta-2026-09-19" class="btn primary">Get the beta package</a>
+  <div class="install-steps">
+    <div class="step"><span class="step-n">1</span> Download the zip and close World of Warcraft.</div>
+    <div class="step"><span class="step-n">2</span> Open your game folder, then <code>_classic_beta_</code> &rsaquo; <code>Interface</code> &rsaquo; <code>AddOns</code>. Create the AddOns folder if it is not there.</div>
+    <div class="step"><span class="step-n">3</span> Copy every folder from inside the zip into AddOns, start the game, and tick them in the AddOns list.</div>
+  </div>
+  <div class="beta-actions">
+    <a href="/download/WicksMods-Forever-beta.zip" class="btn primary" download>Download the zip</a>
+    <a href="https://github.com/Wicksmods/WickSuite/releases/tag/forever-beta-2026-09-19" class="btn">Release notes &rarr;</a>
+  </div>
   <div class="beta-note">
     Known issue on the beta client: settings do not survive a reload. The game writes
     them correctly and never reads them back, which affects every addon, not only these.
