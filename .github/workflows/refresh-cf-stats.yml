@@ -53,12 +53,13 @@ jobs:
           echo "Wrote:"
           cat data/downloads.json
 
-          # Patch the seed in index.html so first paint shows a fresh number
+          # Patch the seed on the TBC page so first paint shows a fresh number.
+          # The stat band lives at /tbc since the front page became Forever.
           # (the JS fetch still wins, but reduces the visible flash on refresh).
           # Matches: <div ... id="total-downloads" data-default="NNN">NNN</div>
-          sed -i -E "s|(id=\"total-downloads\" data-default=\")[0-9]+(\">)[0-9]+(</div>)|\1${TOTAL}\2${TOTAL}\3|" index.html
+          sed -i -E "s|(id=\"total-downloads\" data-default=\")[0-9]+(\">)[0-9]+(</div>)|\1${TOTAL}\2${TOTAL}\3|" tbc/index.html
           echo "Seed line after patch:"
-          grep 'id="total-downloads"' index.html || true
+          grep 'id="total-downloads"' tbc/index.html || true
 
       - name: Check public-slug approval status
         run: |
@@ -109,7 +110,7 @@ jobs:
         run: |
           git config user.name "Wick"
           git config user.email "wicksmods@gmail.com"
-          git add data/downloads.json data/addons-status.json index.html
+          git add data/downloads.json data/addons-status.json tbc/index.html
           if git diff --staged --quiet; then
             echo "No change — nothing to commit."
             echo "changed=false" >> "$GITHUB_OUTPUT"
