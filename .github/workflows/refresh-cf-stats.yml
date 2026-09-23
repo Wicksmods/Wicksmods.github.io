@@ -32,11 +32,16 @@ jobs:
           set -euo pipefail
           mkdir -p data
           TOTAL=0
-          # Project IDs from wick.json (all shipped, non-benched addons)
-          # 1502804 BIS, 1519243 CD, 1502890 Trade, 1521208 Macro, 1525232 Combat,
-          # 1532082 Stats, 1533199 Quest Key, 1535194 Totems, 1537836 Bags,
-          # 1538543 Travel Form, 1540943 Wardrobe, 1542398 Ledger, 1557237 Survivors
-          for ID in 1502804 1519243 1502890 1521208 1525232 1532082 1533199 1535194 1537836 1538543 1540943 1542398 1557237; do
+          # Project IDs from wick.json (all shipped, non-benched addons).
+          # TBC:     1502804 BIS, 1519243 CD, 1521208 Macro, 1525232 Combat,
+          #          1532082 Stats, 1533199 Quest Key, 1535194 Totems,
+          #          1538543 Travel Form, 1540943 Wardrobe, 1542398 Ledger,
+          #          1557237 Survivors
+          # Forever: 1708157 WickCore, 1708161 Comforts, 1708162 Beasts,
+          #          1708165 Stances, 1708290 Gear
+          # Both:    1502890 Trade Hall, 1537836 Bags serve two clients from
+          #          one project each, so they are counted once.
+          for ID in 1502804 1519243 1502890 1521208 1525232 1532082 1533199 1535194 1537836 1538543 1540943 1542398 1557237 1708157 1708161 1708162 1708165 1708290; do
             BODY=$(curl -sf \
               -H "x-api-key: $CF_CORE_API_KEY" \
               -A "Wicksmods landing-page stat refresher (https://github.com/Wicksmods/Wicksmods.github.io)" \
@@ -53,13 +58,27 @@ jobs:
           echo "Wrote:"
           cat data/downloads.json
 
-          # Patch the seed on the TBC page so first paint shows a fresh number.
-          # The stat band lives at /tbc since the front page became Forever.
-          # (the JS fetch still wins, but reduces the visible flash on refresh).
+          # Patch the seed on both pages so first paint shows a fresh
+          # number. The JS fetch still wins; this only removes the flash.
           # Matches: <div ... id="total-downloads" data-default="NNN">NNN</div>
-          sed -i -E "s|(id=\"total-downloads\" data-default=\")[0-9]+(\">)[0-9]+(</div>)|\1${TOTAL}\2${TOTAL}\3|" tbc/index.html
-          echo "Seed line after patch:"
-          grep 'id="total-downloads"' tbc/index.html || true
+          #
+          # Both pages carry the band, and the failure this guards against
+          # is a silent one: the page moved once already and left this
+          # patching a file with nothing in it to patch, which a bare
+          # `|| true` hid for weeks. So a page that has the marker and
+          # does not come out with the new number fails the job.
+          for PAGE in index.html tbc/index.html; do
+            if ! grep -q 'id="total-downloads"' "$PAGE"; then
+              echo "  $PAGE has no counter, skipping"
+              continue
+            fi
+            sed -i -E "s|(id=\"total-downloads\" data-default=\")[0-9]+(\">)[0-9]+(</div>)|\1${TOTAL}\2${TOTAL}\3|" "$PAGE"
+            if ! grep -q "data-default=\"${TOTAL}\"" "$PAGE"; then
+              echo "  $PAGE still does not carry ${TOTAL} after the patch" >&2
+              exit 1
+            fi
+            echo "  $PAGE seeded with ${TOTAL}"
+          done
 
       - name: Check public-slug approval status
         run: |

@@ -448,6 +448,15 @@
   </div>
 </section>
 
+<!-- STAT BAND ───────────────────────────────────────────── -->
+<!-- Every CurseForge project in the suite, both clients, summed by the -->
+<!-- refresher in .github/workflows/refresh-cf-stats.yml every 6 hours. -->
+<section class="stat-band">
+  <div class="stat-eyebrow">— Downloaded and in use —</div>
+  <div class="stat-number" id="total-downloads" data-default="4647">4647</div>
+  <div class="stat-label">Downloads <span class="accent">·</span> CurseForge</div>
+</section>
+
 <section class="beta-band">
   <h2>Beta build, hosted on GitHub</h2>
   <p>
@@ -699,6 +708,23 @@
     <a href="https://www.curseforge.com/members/wick/projects">Wick on CurseForge</a>
   </div>
 </footer>
+
+<!-- Hydrate the live download counter from the refreshed JSON. -->
+<!-- Falls back silently to the seeded value if the fetch fails. -->
+<script>
+(() => {
+  const el = document.getElementById('total-downloads');
+  if (!el) return;
+  fetch('/data/downloads.json?_=' + Date.now(), { cache: 'no-store' })
+    .then(r => r.ok ? r.json() : null)
+    .then(d => {
+      if (d && typeof d.total === 'number') {
+        el.textContent = d.total.toLocaleString();
+      }
+    })
+    .catch(() => { /* keep seed */ });
+})();
+</script>
 
 </body>
 </html>
