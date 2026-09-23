@@ -452,7 +452,8 @@
   <h2>Beta build, hosted on GitHub</h2>
   <p>
     Forever is still in beta, so the suite is too. One zip holds WickCore, the bags,
-    the comforts and every class kit. Drop the folders into
+    the comforts, the levelling gear browser, the trade hall and every class kit.
+    Drop the folders into
     <code>_classic_beta_\Interface\AddOns</code> and they are ready.
   </p>
   <div class="install-steps">
@@ -467,9 +468,11 @@
   <div class="beta-note">
     Known issue on the beta client: the game writes settings correctly and never reads
     them back, so nothing you configure survives a reload. It affects every addon you
-    have, not only these, and there is no workaround worth shipping. An earlier package
-    carried one that stored settings in macros; it never worked and has been removed.
-    Settings will start sticking on their own once Blizzard fixes it.
+    have, not only these. WickCore can keep your Wick settings anyway, in a handful of
+    macros, which live on Blizzard's servers and so survive a relog, a restart and a
+    different PC. It is off until you ask for it with <code>/wickcore store on</code>,
+    it only keeps what you changed from the defaults, and it never touches your own
+    macros. If Blizzard fixes the client it notices and stays out of the way.
   </div>
 </section>
 
