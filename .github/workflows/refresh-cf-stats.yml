@@ -101,6 +101,12 @@ jobs:
             wicks-wardrobe
             wicks-ledger
             wicks-survivors
+            wickcore
+            wicks-comforts
+            wicks-beasts-and-things
+            wicks-stances-and-things
+            wicks-gear
+            wicks-conjures-and-things
           )
 
           NOW=$(date -u +%Y-%m-%dT%H:%M:%SZ)
