@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T04:17:26Z",
+  "updated": "2026-09-24T04:19:11Z",
   "status": {
     "wicks-tbc-bis-tracker": "live",
     "wicks-cd-tracker": "live",
@@ -13,6 +13,12 @@
     "wicks-travel-form": "live",
     "wicks-wardrobe": "live",
     "wicks-ledger": "live",
-    "wicks-survivors": "live"
+    "wicks-survivors": "live",
+    "wickcore": "live",
+    "wicks-comforts": "live",
+    "wicks-beasts-and-things": "live",
+    "wicks-stances-and-things": "live",
+    "wicks-gear": "live",
+    "wicks-conjures-and-things": "pending"
   }
 }
