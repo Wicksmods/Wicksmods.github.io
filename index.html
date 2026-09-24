@@ -475,13 +475,12 @@
     <a href="https://github.com/Wicksmods/WickSuite/releases/tag/forever-beta-2026-09-19" class="btn">Release notes &rarr;</a>
   </div>
   <div class="beta-note">
-    Known issue on the beta client: the game writes settings correctly and never reads
-    them back, so nothing you configure survives a reload. It affects every addon you
-    have, not only these. WickCore can keep your Wick settings anyway, in a handful of
-    macros, which live on Blizzard's servers and so survive a relog, a restart and a
-    different PC. It is off until you ask for it with <code>/wickcore store on</code>,
-    it only keeps what you changed from the defaults, and it never touches your own
-    macros. If Blizzard fixes the client it notices and stays out of the way.
+    Settings are kept the normal way again. For most of the beta the client wrote every
+    addon's settings at logout and handed back nothing at load, so nothing you configured
+    survived a reload, and WickCore kept Wick settings in a handful of macros instead.
+    The patch on 24 September fixed the client. WickCore checks at every login and has
+    stood that workaround down by itself. If you had turned it on, it will say so once
+    at login and <code>/wickcore store off</code> gives you the macro slots back.
   </div>
 </section>
 
